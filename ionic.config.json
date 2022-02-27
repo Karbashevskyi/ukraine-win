@@ -1,0 +1,7 @@
+{
+  "name": "ukraine-win",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
