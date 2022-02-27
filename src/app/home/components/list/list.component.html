@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Url</th>
+      <th>Send</th>
+      <th>Receive</th>
+      <th>Menu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let url of urlList; index as i">
+      <td>{{ i + 1 }}</td>
+      <td class="ion-text-wrap">{{ url }}</td>
+      <td>0</td>
+      <td>0</td>
+      <td>DELETE</td>
+    </tr>
+  </tbody>
+</table>
