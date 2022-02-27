@@ -5,6 +5,9 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
+    "ionic:serve": "ionic serve --no-open",
+    "ionic:build": "ionic build",
+    "firebase:deploy:hosting": "firebase deploy --only=hosting",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
