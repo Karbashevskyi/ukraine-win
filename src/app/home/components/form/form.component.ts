@@ -1,14 +1,66 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit, ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
+import {FormBuilder, FormGroup, Validator, Validators} from '@angular/forms';
+import {IonInput, ToastController} from '@ionic/angular';
+import {MainServiceApp} from '@app/common/services/app/main/main.service.app';
+import {CheckersTool} from '@app/common/tools/checkers.tool';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('linkInput')
+  public readonly linkInput: IonInput;
 
-  ngOnInit() {}
+  public form: FormGroup;
 
+  constructor(
+    private readonly mainServiceApp: MainServiceApp,
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly formBuilder: FormBuilder
+  ) { }
+
+  ngOnInit() {
+    this.initForm();
+  }
+
+  public addNewLink(): void {
+
+    if (this.form.invalid) {
+      this.linkInput.setFocus();
+      return;
+    }
+
+    const value: {
+      link: string
+    } = this.form.value;
+
+    if (CheckersTool.isNotNullOrUndefinedOrEmpty(value)) {
+
+      this.mainServiceApp.addUrlToList(value.link);
+      this.form.reset();
+
+    }
+
+  }
+
+  private initForm(): void {
+
+    this.form = this.formBuilder.group({
+      link: [null, [Validators.required]]
+    });
+
+    this.changeDetectorRef.detectChanges();
+
+  }
 }

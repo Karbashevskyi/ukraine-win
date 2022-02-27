@@ -1,3 +1,7 @@
-<p>
-  form works!
-</p>
+<form [formGroup]="form">
+  <ion-item>
+    <ion-label position="floating">Link (https://example.com/)</ion-label>
+    <ion-input #linkInput formControlName="link"></ion-input>
+    <ion-button slot="end" (click)="addNewLink()">Add new link</ion-button>
+  </ion-item>
+</form>

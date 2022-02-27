@@ -1,20 +1,34 @@
-<table>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Url</th>
-      <th>Send</th>
-      <th>Receive</th>
-      <th>Menu</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let url of urlList; index as i">
-      <td>{{ i + 1 }}</td>
-      <td class="ion-text-wrap">{{ url }}</td>
-      <td>0</td>
-      <td>0</td>
-      <td>DELETE</td>
-    </tr>
-  </tbody>
-</table>
+<ng-container *ngIf="isLoading; else ContentTemplate">
+
+  {{ isLoading ? 'asd' : '123' }}
+  <ion-spinner></ion-spinner>
+</ng-container>
+
+<ng-template #ContentTemplate>
+  <ion-list>
+    <ion-list-header>
+      Click for start attack
+    </ion-list-header>
+    <app-start-attack></app-start-attack>
+    <ion-list-header>
+      Form to add new link to list
+    </ion-list-header>
+    <app-form></app-form>
+    <ion-list-header>
+      List of urls to attack
+    </ion-list-header>
+    <ion-item *ngFor="let url of urlList?.list; let index = index" button>
+      <ion-note slot="start">
+        {{ index+1 }}
+      </ion-note>
+      <ion-label (click)="copyToClipboard(url)">
+        {{ url }}
+      </ion-label>
+      <ion-note slot="end">0</ion-note>
+      <ion-note slot="end">0</ion-note>
+      <ion-button slot="end" (click)="deleteItemFromList(url)">
+        Delete
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ng-template>

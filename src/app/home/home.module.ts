@@ -1,11 +1,13 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {IonicModule} from '@ionic/angular';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HomePage} from './home.page';
 
 import {HomePageRoutingModule} from './home-routing.module';
 import {ListComponent} from './components/list/list.component';
+import {FormComponent} from '@app/home/components/form/form.component';
+import {StartAttackComponent} from '@app/home/components/start-attack/start-attack.component';
 
 
 @NgModule({
@@ -13,11 +15,14 @@ import {ListComponent} from './components/list/list.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [
     HomePage,
-    ListComponent
+    FormComponent,
+    ListComponent,
+    StartAttackComponent
   ]
 })
 export class HomePageModule {
