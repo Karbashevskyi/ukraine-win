@@ -9,6 +9,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {HandleErrorServiceService} from '../handle-error-service.service';
 import {ConvertTool} from '@app/common/tools/convert.tool';
 import {environment} from '@src/environments/environment';
+import {SourceEnum} from '@app/common/enums/source.enum';
 
 export const REPLACE_MAP_REGEX = /{(\w*)}/g;
 
@@ -57,7 +58,7 @@ export class ApiService {
    */
   public static getUrl(requestParams?: RequestParamsInterface, options?: RequestOptionsInterface): string {
 
-    let url: string = environment.host;
+    let url: string = environment.host[requestParams?.endpoint?.source ?? SourceEnum.MAIN];
     url += (requestParams ? (requestParams?.replaceMap ? ApiService.convertPathToUrl(requestParams.endpoint.path, requestParams.replaceMap) : requestParams.endpoint.path) : '');
 
     if (requestParams?.buildUrlWithParams) {

@@ -1,0 +1,12 @@
+{
+  "/github/*": {
+    "target": "https://raw.githubusercontent.com/Karbashevskyi/ukraine-win/main",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "ws": true,
+    "pathRewrite": {
+      "^/github": ""
+    }
+  }
+}

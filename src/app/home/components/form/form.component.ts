@@ -60,6 +60,14 @@ export class FormComponent implements OnInit {
       link: [null, [Validators.required]]
     });
 
+    // TODO valid
+    // if (url.endsWith(".ru/") && url.startsWith("http")) {
+    //   targets[url] = {number_of_requests: 0, number_of_errored_responses: 0};
+    //   rebuildTable();
+    // } else {
+    //   alert("URL повинен починатись з http:// або https:// та закінчуватись на .ru/");
+    // }
+
     this.changeDetectorRef.detectChanges();
 
   }

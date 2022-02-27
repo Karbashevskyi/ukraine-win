@@ -1,6 +1,4 @@
 <ng-container *ngIf="isLoading; else ContentTemplate">
-
-  {{ isLoading ? 'asd' : '123' }}
   <ion-spinner></ion-spinner>
 </ng-container>
 
@@ -17,16 +15,16 @@
     <ion-list-header>
       List of urls to attack
     </ion-list-header>
-    <ion-item *ngFor="let url of urlList?.list; let index = index" button>
+    <ion-item *ngFor="let urlModel of urlList?.list; let index = index; trackBy: trackByFn" button>
       <ion-note slot="start">
         {{ index+1 }}
       </ion-note>
-      <ion-label (click)="copyToClipboard(url)">
-        {{ url }}
+      <ion-label (click)="copyToClipboard(urlModel.url)">
+        {{ urlModel.url }}
       </ion-label>
-      <ion-note slot="end">0</ion-note>
-      <ion-note slot="end">0</ion-note>
-      <ion-button slot="end" (click)="deleteItemFromList(url)">
+      <ion-note slot="end">{{ urlModel?.numberOfRequests }}</ion-note>
+      <ion-note slot="end">{{ urlModel?.numberOfErroredResponses }}</ion-note>
+      <ion-button slot="end" (click)="deleteItemFromList(urlModel.url)">
         Delete
       </ion-button>
     </ion-item>

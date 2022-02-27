@@ -2,8 +2,12 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import {SourceEnum} from '@app/common/enums/source.enum';
+
 export const environment = {
-  host: '',
+  host: {
+    [SourceEnum.GITHUB]: SourceEnum.GITHUB
+  },
   production: false
 };
 

@@ -1,14 +1,15 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Reactive} from '@app/common/cdk/reactive';
 import {MainInterfaceApi} from '@app/common/interfaces/api/main/main.interface.api';
 import {ToastController} from '@ionic/angular';
 import {MainServiceApp} from '@app/common/services/app/main/main.service.app';
+import {UrlModel} from '@app/common/model/url/url.model';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent extends Reactive implements OnInit {
 
@@ -20,7 +21,7 @@ export class ListComponent extends Reactive implements OnInit {
   constructor(
     private readonly toastController: ToastController,
     private readonly mainServiceApp: MainServiceApp,
-    private readonly changeDetectorRef: ChangeDetectorRef
+    // private readonly changeDetectorRef: ChangeDetectorRef
   ) {
     super();
   }
@@ -28,6 +29,7 @@ export class ListComponent extends Reactive implements OnInit {
   ngOnInit() {
 
     this.initSubscribes();
+    this.initAutoUpdateUrlList();
 
   }
 
@@ -40,14 +42,13 @@ export class ListComponent extends Reactive implements OnInit {
   }
 
   public stopLoading(): void {
-    console.log('stopLoading');
     this.loading = false;
-    this.changeDetectorRef.detectChanges();
+    // this.changeDetectorRef.detectChanges();
   }
 
   public startLoading(): void {
     this.loading = true;
-    this.changeDetectorRef.detectChanges();
+    // this.changeDetectorRef.detectChanges();
   }
 
   public isInitialize(): boolean {
@@ -68,8 +69,6 @@ export class ListComponent extends Reactive implements OnInit {
   private initSubscribeUrlList(): void {
 
     this.mainServiceApp.urlList$.pipe(this.takeUntil()).subscribe((urlList: MainInterfaceApi) => {
-
-      console.log(urlList);
 
       if (this.isNotInitialize()) {
 
@@ -101,7 +100,6 @@ export class ListComponent extends Reactive implements OnInit {
   public copyToClipboard(url: string): void {
 
     if (!navigator?.clipboard) {
-      console.log(navigator?.clipboard);
       return;
     }
 
@@ -125,6 +123,21 @@ export class ListComponent extends Reactive implements OnInit {
    */
   public deleteItemFromList(url: string): void {
     this.mainServiceApp.deleteUrlFromList(url);
+  }
+
+  private initAutoUpdateUrlList(): void {
+
+    this.mainServiceApp.startAutoUpdateUrlList();
+
+  }
+
+  /**
+   *
+   * @param index
+   * @param item
+   */
+  public trackByFn(index, item: UrlModel) {
+    return item.url;
   }
 
 }
